@@ -1,15 +1,12 @@
 # app.py
-import os
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 # Use a different database for testing/development
-if os.environ.get('FLASK_ENV') == 'development':
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
 class Post(db.Model):
